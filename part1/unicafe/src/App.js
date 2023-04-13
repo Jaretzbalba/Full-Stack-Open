@@ -40,7 +40,7 @@ const Statistics = ({ good, neutral, bad }) => {
           value={average}
         />
         <StatisticLine
-          text={'percentage'}
+          text={'positive'}
           value={percentage + ' %'}
         />
       </tbody>
