@@ -1,7 +1,14 @@
-const Contact = ({ id, name, number }) => {
+import Button from './Button';
+
+const Contact = ({ person, handleDelete }) => {
   return (
-    <p key={id}>
-      {name} {number}
+    <p>
+      {person.name} {person.number}
+      <Button
+        value={person.name}
+        handleDelete={handleDelete}
+        text={'delete'}
+      />
     </p>
   );
 };

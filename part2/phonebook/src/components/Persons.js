@@ -1,17 +1,17 @@
 import Contact from './Contact';
 
-const Persons = ({ persons }) => {
-  return (
-    <>
-      {persons.map(person => (
+const Persons = ({ persons, handleDelete }) => (
+  <>
+    {persons.map(person => {
+      return (
         <Contact
-          key={person.id}
-          name={person.name}
-          number={person.number}
+          key={person.name}
+          person={person}
+          handleDelete={handleDelete}
         />
-      ))}
-    </>
-  );
-};
+      );
+    })}
+  </>
+);
 
 export default Persons;
