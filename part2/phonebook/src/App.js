@@ -1,6 +1,7 @@
 import Filter from './components/Filter';
 import Persons from './components/Persons';
 import PersonForm from './components/PersonForm';
+import Notification from './components/Notification';
 import { useState, useEffect } from 'react';
 import contactService from './services/contacts';
 
@@ -34,11 +35,20 @@ const App = () => {
         id: newName,
       };
 
-      contactService.create(personObject).then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson));
-        setNewName('');
-        setNewNumber('');
-      });
+      contactService
+        .create(personObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson));
+          setNewName('');
+          setNewNumber('');
+          showMessage('sucess', `Added ${personObject.name}`);
+        })
+        .catch(error => {
+          showMessage(
+            'error',
+            `Information of ${personObject.name} has already been removed from server`
+          );
+        });
     }
   };
 
@@ -64,11 +74,12 @@ const App = () => {
         .remove(id)
         .then(emptyData => {
           setPersons(persons.filter(person => person.id !== id));
+          showMessage('sucess', `${person.name} was successfully deleted`);
         })
         .catch(error => {
           showMessage(
             'error',
-            person.name + ' has already been removed from server'
+            `${person.name} has already been removed from server`
           );
         });
     }
@@ -92,7 +103,7 @@ const App = () => {
       .catch(error => {
         showMessage(
           'error',
-          person.name + ' has already been removed from server'
+          `Information of ${person.name} has already been removed from server`
         );
       });
   };
@@ -101,7 +112,7 @@ const App = () => {
     setMessage({ type: type, text: message });
     setTimeout(() => {
       setMessage(null);
-    }, 5000);
+    }, 4000);
   };
 
   const personsToShow =
@@ -114,6 +125,7 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+      <Notification message={message} />
       <Filter
         filterName={filterName}
         handleChange={handleFilterNameChange}
