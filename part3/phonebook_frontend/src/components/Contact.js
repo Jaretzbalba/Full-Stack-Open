@@ -5,7 +5,7 @@ const Contact = ({ person, handleDelete }) => {
     <p>
       {person.name} {person.number}
       <Button
-        value={person.name}
+        value={person.id}
         handleDelete={handleDelete}
         text={'delete'}
       />

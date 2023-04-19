@@ -66,9 +66,8 @@ const App = () => {
 
   const handleDelete = event => {
     event.preventDefault();
-    const id = event.target.value;
+    const id = Number(event.target.value);
     const person = persons.find(person => person.id === id);
-    console.log(person);
     if (window.confirm(`Delete ${person.name}`)) {
       contactService
         .remove(id)
