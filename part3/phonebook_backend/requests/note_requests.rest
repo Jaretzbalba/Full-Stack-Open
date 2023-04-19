@@ -14,3 +14,18 @@ GET http://localhost:3001/api/persons/3
 
 ### 
 DELETE  http://localhost:3001/api/persons/3
+
+###
+GET https://phonebook-backend-pvmj.onrender.com/api/persons
+
+###
+GET https://phonebook-backend-pvmj.onrender.com/api/persons/3
+
+###
+POST https://phonebook-backend-pvmj.onrender.com/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Jamie Balba",
+    "number": "111-111-1111"
+}
