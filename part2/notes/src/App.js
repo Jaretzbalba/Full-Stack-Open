@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Note from './components/Note';
 import Notification from './components/Notification';
 import Footer from './components/Footer';
-
 import noteService from './services/notes';
 
 const App = () => {
@@ -34,6 +33,8 @@ const App = () => {
     setNewNote(event.target.value);
   };
 
+  const notesToShow = showAll ? notes : notes.filter(note => note.important);
+
   const toggleImportanceOf = id => {
     const note = notes.find(n => n.id === id);
     const changedNote = { ...note, important: !note.important };
@@ -54,11 +55,9 @@ const App = () => {
       });
   };
 
-  const notesToShow = showAll ? notes : notes.filter(note => note.important);
-
   return (
     <div>
-      <h1>Notes</h1>
+      <h1>Notes app</h1>
       <Notification message={errorMessage} />
       <div>
         <button onClick={() => setShowAll(!showAll)}>
