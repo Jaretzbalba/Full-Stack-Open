@@ -43,10 +43,11 @@ const App = () => {
           showMessage('sucess', `Added ${personObject.name} to phonebook`);
         })
         .catch(error => {
-          showMessage(
-            'error',
-            `Information of ${personObject.name} has already been removed from server`
-          );
+          let message = 'There was an error';
+          if (error.response) {
+            message = error.response.data.error;
+          }
+          showMessage('error', message);
         });
     }
   };
@@ -100,10 +101,11 @@ const App = () => {
         showMessage('sucess', `${person.name} was successfully updated`);
       })
       .catch(error => {
-        showMessage(
-          'error',
-          `Information of ${person.name} has already been removed from server`
-        );
+        let message = 'There was an error';
+        if (error.response) {
+          message = error.response.data.error;
+        }
+        showMessage('error', message);
       });
   };
 
