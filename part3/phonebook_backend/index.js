@@ -21,10 +21,15 @@ app.get('/', (request, response) => {
 });
 
 app.get('/info', (request, response) => {
-  response.send(
-    `<h1>Phonebook has info for ${persons.length} people</h1>
-    <p>${new Date()}</p>`
-  );
+  Contact.find({})
+    .then(contacts => {
+      response.send(
+        `<h1>Phonebook has info for ${
+          contacts.length
+        } people</h1> <p>${new Date().toLocaleString()}</p>`
+      );
+    })
+    .catch(error => next(error));
 });
 
 app.get('/api/persons', (request, response) => {
@@ -66,6 +71,21 @@ app.post('/api/persons', (request, response) => {
   person.save().then(savedContact => {
     response.json(savedContact);
   });
+});
+
+app.put('/api/persons/:id', (request, response, next) => {
+  const body = request.body;
+
+  const note = {
+    name: body.name,
+    number: body.number,
+  };
+
+  Contact.findByIdAndUpdate(request.params.id, note, { new: true })
+    .then(updatedContact => {
+      response.json(updatedContact);
+    })
+    .catch(error => next(error));
 });
 
 app.delete('/api/persons/:id', (request, response, next) => {
