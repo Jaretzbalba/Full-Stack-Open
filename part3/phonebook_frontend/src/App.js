@@ -21,35 +21,25 @@ const App = () => {
   const addPerson = event => {
     event.preventDefault();
 
-    if (
-      persons.find(person => person.name === newName) &&
-      window.confirm(
-        `${newName} is already added to phonebook, replace the old number with a new one?`
-      )
-    ) {
-      updateNumber();
-    } else {
-      const personObject = {
-        name: newName,
-        number: newNumber,
-        id: newName,
-      };
+    const personObject = {
+      name: newName,
+      number: newNumber,
+    };
 
-      contactService
-        .create(personObject)
-        .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson));
-          setNewName('');
-          setNewNumber('');
-          showMessage('sucess', `Added ${personObject.name}`);
-        })
-        .catch(error => {
-          showMessage(
-            'error',
-            `Information of ${personObject.name} has already been removed from server`
-          );
-        });
-    }
+    contactService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson));
+        setNewName('');
+        setNewNumber('');
+        showMessage('sucess', `Added ${personObject.name} to phonebook`);
+      })
+      .catch(error => {
+        showMessage(
+          'error',
+          `Information of ${personObject.name} has already been removed from server`
+        );
+      });
   };
 
   const handleNameChange = event => {
@@ -66,7 +56,8 @@ const App = () => {
 
   const handleDelete = event => {
     event.preventDefault();
-    const id = Number(event.target.value);
+
+    const id = event.target.value;
     const person = persons.find(person => person.id === id);
     if (window.confirm(`Delete ${person.name}`)) {
       contactService
@@ -82,29 +73,6 @@ const App = () => {
           );
         });
     }
-  };
-
-  const updateNumber = () => {
-    const person = persons.find(person => person.name === newName);
-    const updatedPerson = { ...person, number: newNumber };
-    contactService
-      .update(person.id, updatedPerson)
-      .then(returnedPerson => {
-        setPersons(
-          persons.map(person =>
-            person.name !== newName ? person : returnedPerson
-          )
-        );
-        setNewName('');
-        setNewNumber('');
-        showMessage('sucess', `${person.name} was successfully updated`);
-      })
-      .catch(error => {
-        showMessage(
-          'error',
-          `Information of ${person.name} has already been removed from server`
-        );
-      });
   };
 
   const showMessage = (type, message) => {
