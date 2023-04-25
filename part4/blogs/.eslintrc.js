@@ -1,8 +1,10 @@
 module.exports = {
   env: {
-    node: true,
+    browser: true,
     commonjs: true,
     es2021: true,
+    node: true,
+    jest: true,
   },
   extends: 'eslint:recommended',
   overrides: [],
@@ -20,4 +22,4 @@ module.exports = {
     'arrow-spacing': ['error', { before: true, after: true }],
     'no-console': 0,
   },
-};
+}
