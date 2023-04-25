@@ -1,0 +1,55 @@
+GET http://localhost:3001/api/blogs
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+"title": "Test-1", 
+"author": "Jaret Balba", 
+"url": "www.test-1.com", 
+"likes": 1
+}
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+"title": "Test-2", 
+"author": "Jamie Balba", 
+"url": "www.test-2.com", 
+"likes": 2
+}
+
+###
+GET http://localhost:3001/api/blogs/
+
+###
+PUT http://localhost:3001/api/blogs/
+Content-Type: application/json
+
+{
+"title": "Test-2", 
+"author": "Jamie Balba", 
+"url": "www.test-2.com", 
+"likes": 2
+}
+
+###
+DELETE http://localhost:3001/api/blogs/64482d3282f9c97de609277c
+
+###
+GET https://phonebook-backend-pvmj.onrender.com/api/persons
+
+###
+GET https://phonebook-backend-pvmj.onrender.com/api/persons/3
+
+###
+POST https://phonebook-backend-pvmj.onrender.com/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Jamie Balba",
+    "number": "111-111-1111"
+}
