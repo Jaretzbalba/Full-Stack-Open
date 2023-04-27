@@ -5,9 +5,10 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-"title": "Test-3", 
+"title": "Test-5", 
 "author": "Jaret Balba", 
-"url": "www.test-3.com"
+"url": "www.test-5.com",
+"userId": "6449f7eb137b60266ca1a192"
 }
 
 ###
