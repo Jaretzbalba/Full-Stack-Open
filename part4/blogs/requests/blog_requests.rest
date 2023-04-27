@@ -5,10 +5,9 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-"title": "Test-1", 
+"title": "Test-3", 
 "author": "Jaret Balba", 
-"url": "www.test-1.com", 
-"likes": 1
+"url": "www.test-3.com"
 }
 
 ###
@@ -16,10 +15,10 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-"title": "Test-2", 
+"title": "Test-4", 
 "author": "Jamie Balba", 
-"url": "www.test-2.com", 
-"likes": 2
+"url": "www.test-4.com", 
+"likes": 4
 }
 
 ###
