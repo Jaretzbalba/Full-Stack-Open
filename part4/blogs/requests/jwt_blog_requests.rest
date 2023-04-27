@@ -3,8 +3,12 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0NDlmN2IzMTM3YjYwMjY2Y2ExYTE4ZCIsImlhdCI6MTY4MjYxMjA4NH0.7GECvBTt-nZe4r72PZgTOsfy2yig0meLWB8e8ok3B-0
 
 {
-"title": "Test-7", 
+"title": "Test-9", 
 "author": "Jamie Balba", 
-"url": "www.test-7.com", 
-"likes": 7
+"url": "www.test-9.com", 
+"likes": 9
 }
+
+###
+DELETE http://localhost:3001/api/blogs/644af62a2ca7e55b8daa9d00
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0NDlmN2IzMTM3YjYwMjY2Y2ExYTE4ZCIsImlhdCI6MTY4MjYxMjA4NH0.7GECvBTt-nZe4r72PZgTOsfy2yig0meLWB8e8ok3B-0
