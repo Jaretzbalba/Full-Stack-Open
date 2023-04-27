@@ -1,11 +1,34 @@
-POST http://localhost:3001/api/notes/
+GET http://localhost:3001/api/users
+
+###
+POST http://localhost:3001/api/users/
 Content-Type: application/json
 
 {
-    "id": 4,
-    "content": "VS Code rest client is a pretty handy tool",
-    "important": true
+    "username": "root",
+    "name": "Superuser",
+    "password": "salainen"
 }
 
 ###
+POST http://localhost:3001/api/users/
+Content-Type: application/json
+
+{
+    "username": "JaretBalba",
+    "name": "Jaret",
+    "password": "password"
+}
+###
 GET http://localhost:3001/api/notes
+
+###
+POST http://localhost:3001/api/notes/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0NDk5OWIzMTU5N2YxZDRjNGY5NWZlOSIsImlhdCI6MTY4MjU2NzEyOSwiZXhwIjoxNjgyNTcwNzI5fQ.WUF_167eHEXcNCbPzAvidP2ezYJOytsto4S_gwvIHl8
+
+{
+    "content": "Single Page Apps use token authorization",
+    "important": true,
+    "userId": "644999b31597f1d4c4f95fe9"
+}
