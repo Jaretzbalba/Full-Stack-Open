@@ -7,6 +7,15 @@ const api = supertest(app)
 const Blog = require('../models/blog')
 const helper = require('./test_helper')
 
+let token = ''
+
+beforeAll(async () => {
+  const testUser = { username: 'testUser', password: 'password' }
+  await api.post('/api/users').send(testUser)
+  const responseLogin = await api.post('/api/login').send(testUser)
+  token = responseLogin.body.token
+}, 30000)
+
 beforeEach(async () => {
   await Blog.deleteMany({})
   await Blog.insertMany(helper.initialBlogs)
@@ -43,6 +52,7 @@ describe('Test on saved blog post:', () => {
 
     await api
       .post('/api/blogs')
+      .set('authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -63,6 +73,7 @@ describe('Test on saved blog post:', () => {
 
     await api
       .post('/api/blogs')
+      .set('authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -80,7 +91,11 @@ describe('Test on saved blog post:', () => {
       likes: 100,
     }
 
-    await api.post('/api/blogs').send(newBlog).expect(400)
+    await api
+      .post('/api/blogs')
+      .set('authorization', `Bearer ${token}`)
+      .send(newBlog)
+      .expect(400)
 
     const blogsAtEnd = await helper.blogsInDb()
 
@@ -91,13 +106,29 @@ describe('Test on saved blog post:', () => {
 describe('deletion of a blog', () => {
   test('a blog can be deleted', async () => {
     const blogsAtStart = await helper.blogsInDb()
-    const blogToDelete = blogsAtStart[0]
 
-    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204)
+    const newBlog = {
+      title: 'test',
+      author: 'test',
+      url: 'https://test.org/',
+      likes: 1,
+    }
+
+    const postResponse = await api
+      .post('/api/blogs')
+      .set('authorization', `Bearer ${token}`)
+      .send(newBlog)
+
+    const blogToDelete = postResponse.body
+
+    await api
+      .delete(`/api/blogs/${blogToDelete.id}`)
+      .set('authorization', `Bearer ${token}`)
+      .expect(204)
 
     const blogsAtEnd = await helper.blogsInDb()
 
-    expect(blogsAtEnd).toHaveLength(blogsAtStart.length - 1)
+    expect(blogsAtEnd).toHaveLength(blogsAtStart.length)
 
     const titles = blogsAtEnd.map(r => r.title)
 
@@ -107,17 +138,33 @@ describe('deletion of a blog', () => {
 
 describe('update of a blog', () => {
   test('a blog can be updated', async () => {
-    const blogsAtStart = await helper.blogsInDb()
-    const blogToUpdate = blogsAtStart[0]
+    const newBlog = {
+      title: 'test',
+      author: 'test',
+      url: 'https://test.org/',
+      likes: 1,
+    }
+
+    const postRes = await api
+      .post('/api/blogs')
+      .set('authorization', `Bearer ${token}`)
+      .send(newBlog)
+
+    const blogToUpdate = postRes.body
+    console.log(blogToUpdate)
 
     const newLikes = {
       likes: blogToUpdate.likes++,
     }
 
-    await api.put(`/api/blogs/${blogToUpdate.id}`).send(newLikes).expect(200)
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .set('authorization', `Bearer ${token}`)
+      .send(newLikes)
+      .expect(200)
 
     const blogsAtEnd = await helper.blogsInDb()
-    expect(blogsAtEnd[0].likes).toBe(newLikes.likes)
+    expect(blogsAtEnd[blogsAtEnd.length - 1].likes).toBe(newLikes.likes)
   })
 })
 

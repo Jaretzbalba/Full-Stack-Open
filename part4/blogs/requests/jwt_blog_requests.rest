@@ -1,14 +1,26 @@
 POST http://localhost:3001/api/blogs/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0NDlmN2IzMTM3YjYwMjY2Y2ExYTE4ZCIsImlhdCI6MTY4MjYxMjA4NH0.7GECvBTt-nZe4r72PZgTOsfy2yig0meLWB8e8ok3B-0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphbWllIiwiaWQiOiI2NDRiMzQxN2NkMjBlNzJlYjI1ZDNlMDEiLCJpYXQiOjE2ODI2NTAxNjN9.zlbBzwsrfKauPsn-YxH5BxGU61qCWOYg6e542O8ZmLI
 
 {
-"title": "Test-9", 
+"title": "Test-1", 
 "author": "Jamie Balba", 
-"url": "www.test-9.com", 
-"likes": 9
+"url": "www.test-1.com", 
+"likes": 1
 }
 
 ###
-DELETE http://localhost:3001/api/blogs/644af62a2ca7e55b8daa9d00
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0NDlmN2IzMTM3YjYwMjY2Y2ExYTE4ZCIsImlhdCI6MTY4MjYxMjA4NH0.7GECvBTt-nZe4r72PZgTOsfy2yig0meLWB8e8ok3B-0
+DELETE http://localhost:3001/api/blogs/644a027a20a24066193095be
+Authorization: Bearer <insert token>
+
+###
+PUT http://localhost:3001/api/blogs/644b3450cd20e72eb25d3e08
+Content-Type: application/json
+Authorization: Bearer <insert token>
+
+{
+"title": "Test-1", 
+"author": "Jamie Balba", 
+"url": "www.test-1.com", 
+"likes": 2
+}
