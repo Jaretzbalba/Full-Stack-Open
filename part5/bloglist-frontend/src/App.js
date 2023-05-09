@@ -5,15 +5,16 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
+import CreateForm from './components/CreateForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
-  // const [newBlog, setNewBlog] = useState({
-  //   title: null,
-  //   author: null,
-  //   url: null,
-  // })
+  const [newBlog, setNewBlog] = useState({
+    title: null,
+    author: null,
+    url: null,
+  })
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -59,8 +60,24 @@ const App = () => {
     setUser(null)
   }
 
+  const createNewBlog = async newBlog => {
+    try {
+      await blogService.create(newBlog)
+      const newBlogs = await blogService.getAll()
+      setBlogs(newBlogs)
+      setNewBlog({
+        title: null,
+        author: null,
+        url: null,
+      })
+    } catch (error) {
+      setErrorMessage('Something went wrong while saving this blog!')
+    }
+  }
+
   return (
     <div>
+      <h1>Blogs App</h1>
       <Notification message={errorMessage} />
       {!user ? (
         <LoginForm
@@ -76,13 +93,19 @@ const App = () => {
             username={user.name}
             handleLogout={handleLogout}
           />
-          <h2>blogs</h2>
-          {blogs.map(blog => (
-            <Blog
-              key={blog.id}
-              blog={blog}
-            />
-          ))}
+          <ul>
+            {blogs.map(blog => (
+              <li key={blog.id}>
+                <Blog blog={blog} />
+              </li>
+            ))}
+          </ul>
+
+          <CreateForm
+            newBlog={newBlog}
+            setNewBlog={setNewBlog}
+            createNewBlog={createNewBlog}
+          />
         </div>
       )}
     </div>
