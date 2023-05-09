@@ -9,7 +9,7 @@ import CreateForm from './components/CreateForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [message, setMessage] = useState(null)
   const [newBlog, setNewBlog] = useState({
     title: null,
     author: null,
@@ -33,6 +33,13 @@ const App = () => {
     }
   }, [])
 
+  const showMessage = (type, message) => {
+    setMessage({ type: type, text: message })
+    setTimeout(() => {
+      setMessage(null)
+    }, 4000)
+  }
+
   const handleLogin = async event => {
     event.preventDefault()
 
@@ -47,11 +54,9 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
+      showMessage('sucess', `${user.name} was successfully logged in`)
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      showMessage('error', `wrong username or password`)
     }
   }
 
@@ -70,15 +75,19 @@ const App = () => {
         author: null,
         url: null,
       })
+      showMessage(
+        'sucess',
+        `a new blog ${newBlog.title} by ${newBlog.author} added`
+      )
     } catch (error) {
-      setErrorMessage('Something went wrong while saving this blog!')
+      showMessage('error', `error while saving new blog`)
     }
   }
 
   return (
     <div>
       <h1>Blogs App</h1>
-      <Notification message={errorMessage} />
+      <Notification message={message} />
       {!user ? (
         <LoginForm
           username={username}
