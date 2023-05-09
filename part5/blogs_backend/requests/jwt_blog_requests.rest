@@ -1,0 +1,26 @@
+POST http://localhost:3003/api/blogs/
+Content-Type: application/json
+Authorization: Bearer <insert token>
+
+{
+"title": "Test-2", 
+"author": "Jaret Balba", 
+"url": "www.test-2.com", 
+"likes": 2
+}
+
+###
+DELETE http://localhost:3003/api/blogs/644a027a20a24066193095be
+Authorization: Bearer <insert token>
+
+###
+PUT http://localhost:3003/api/blogs/644b3450cd20e72eb25d3e08
+Content-Type: application/json
+Authorization: Bearer <insert token>
+
+{
+"title": "Test-1", 
+"author": "Jamie Balba", 
+"url": "www.test-1.com", 
+"likes": 2
+}
