@@ -1,14 +1,22 @@
-const CreateForm = ({ newBlog, setNewBlog, createNewBlog }) => {
-  const handleNewBlog = async event => {
+import { useState } from 'react'
+
+const CreateForm = ({ handleNewBlog }) => {
+  const [newBlog, setNewBlog] = useState({
+    title: null,
+    author: null,
+    url: null,
+  })
+
+  const createNewBlog = async event => {
     event.preventDefault()
-    createNewBlog(newBlog)
+    handleNewBlog(newBlog)
     event.target.reset()
   }
 
   return (
     <div>
       <h2>Create new Blog</h2>
-      <form onSubmit={handleNewBlog}>
+      <form onSubmit={createNewBlog}>
         <div>
           title:
           <input

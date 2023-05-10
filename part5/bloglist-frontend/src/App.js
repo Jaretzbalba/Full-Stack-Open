@@ -1,21 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
+import Togglable from './components/Togglable'
 import CreateForm from './components/CreateForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [message, setMessage] = useState(null)
-  const [newBlog, setNewBlog] = useState({
-    title: null,
-    author: null,
-    url: null,
-  })
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -32,6 +27,8 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
+  const blogFormRef = useRef()
 
   const showMessage = (type, message) => {
     setMessage({ type: type, text: message })
@@ -70,11 +67,7 @@ const App = () => {
       await blogService.create(newBlog)
       const newBlogs = await blogService.getAll()
       setBlogs(newBlogs)
-      setNewBlog({
-        title: null,
-        author: null,
-        url: null,
-      })
+      blogFormRef.current.toggleVisibility()
       showMessage(
         'sucess',
         `a new blog ${newBlog.title} by ${newBlog.author} added`
@@ -110,11 +103,12 @@ const App = () => {
             ))}
           </ul>
 
-          <CreateForm
-            newBlog={newBlog}
-            setNewBlog={setNewBlog}
-            createNewBlog={createNewBlog}
-          />
+          <Togglable
+            buttonLabel='new blog'
+            ref={blogFormRef}
+          >
+            <CreateForm handleNewBlog={createNewBlog} />
+          </Togglable>
         </div>
       )}
     </div>
