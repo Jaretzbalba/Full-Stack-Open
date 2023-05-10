@@ -95,13 +95,13 @@ const App = () => {
             username={user.name}
             handleLogout={handleLogout}
           />
-          <ul>
-            {blogs.map(blog => (
-              <li key={blog.id}>
-                <Blog blog={blog} />
-              </li>
-            ))}
-          </ul>
+
+          {blogs.map(blog => (
+            <Blog
+              blog={blog}
+              key={blog.id}
+            />
+          ))}
 
           <Togglable
             buttonLabel='new blog'
