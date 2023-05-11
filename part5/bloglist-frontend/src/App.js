@@ -92,6 +92,16 @@ const App = () => {
     }
   }
 
+  const removeBlog = async id => {
+    try {
+      await blogService.remove(id)
+      setRefreshBlogs(!refreshBlogs)
+      showMessage('success', `The blog was successfully deleted`)
+    } catch (error) {
+      showMessage('danger', error.message)
+    }
+  }
+
   return (
     <div>
       <h1>Blogs App</h1>
@@ -112,11 +122,12 @@ const App = () => {
           />
 
           {blogs.map(blog => {
-            console.log(blog.likes)
             return (
               <Blog
                 blog={blog}
                 likesUpdate={likesUpdate}
+                removeBlog={removeBlog}
+                user={user}
                 key={blog.id}
               />
             )
