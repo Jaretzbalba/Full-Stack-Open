@@ -14,10 +14,14 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [refreshBlogs, setRefreshBlogs] = useState(false)
 
   useEffect(() => {
-    blogService.getAll().then(blogs => setBlogs(blogs))
-  }, [])
+    blogService.getAll().then(blogs => {
+      blogs.sort((a, b) => b.likes - a.likes)
+      return setBlogs(blogs)
+    })
+  }, [refreshBlogs])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -65,6 +69,7 @@ const App = () => {
   const createNewBlog = async newBlog => {
     try {
       await blogService.create(newBlog)
+      setRefreshBlogs(!refreshBlogs)
       const newBlogs = await blogService.getAll()
       setBlogs(newBlogs)
       blogFormRef.current.toggleVisibility()
@@ -80,6 +85,7 @@ const App = () => {
   const likesUpdate = async (id, blogObject) => {
     try {
       await blogService.update(id, blogObject)
+      setRefreshBlogs(!refreshBlogs)
       showMessage('success', `Successfully like added`)
     } catch (error) {
       showMessage('danger', error.message)
@@ -105,13 +111,16 @@ const App = () => {
             handleLogout={handleLogout}
           />
 
-          {blogs.map(blog => (
-            <Blog
-              blog={blog}
-              likesUpdate={likesUpdate}
-              key={blog.id}
-            />
-          ))}
+          {blogs.map(blog => {
+            console.log(blog.likes)
+            return (
+              <Blog
+                blog={blog}
+                likesUpdate={likesUpdate}
+                key={blog.id}
+              />
+            )
+          })}
 
           <Togglable
             buttonLabel='new blog'
