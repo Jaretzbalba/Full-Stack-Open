@@ -52,14 +52,16 @@ blogsRouter.delete('/:id', async (request, response) => {
 
 blogsRouter.put('/:id', async (request, response) => {
   const updatedBlog = new Blog(request.body)
-  //set blog variable to data in the request body
-  const blog = await Blog.findById(request.params.id)
 
-  //error if blog's user field doesn't match userId from request object(use tokenExtractor/userExtractor to set the userId)
-  //if failed, either current user doesn't match the user of the blog trying to be deleted or a token wasn't recieved
-  if (blog.user.toString() !== request.userId) {
-    return response.status(401).json({ error: 'token missing or invalid' })
-  }
+  // RESTRICT LIKES TO ONLY INPUT BLOG USER //
+  // //set blog variable to data in the request body
+  // const blog = await Blog.findById(request.params.id)
+
+  // //error if blog's user field doesn't match userId from request object(use tokenExtractor/userExtractor to set the userId)
+  // //if failed, either current user doesn't match the user of the blog trying to be deleted or a token wasn't recieved
+  // if (blog.user.toString() !== request.userId) {
+  //   return response.status(401).json({ error: 'token missing or invalid' })
+  // }
 
   const savedBlog = await Blog.findByIdAndUpdate(
     request.params.id,

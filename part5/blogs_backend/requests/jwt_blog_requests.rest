@@ -22,5 +22,5 @@ Authorization: Bearer <insert token>
 "title": "Test-1", 
 "author": "Jamie Balba", 
 "url": "www.test-1.com", 
-"likes": 2
+"likes": 3
 }
