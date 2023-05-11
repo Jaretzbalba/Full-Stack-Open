@@ -77,6 +77,15 @@ const App = () => {
     }
   }
 
+  const likesUpdate = async (id, blogObject) => {
+    try {
+      await blogService.update(id, blogObject)
+      showMessage('success', `Successfully like added`)
+    } catch (error) {
+      showMessage('danger', error.message)
+    }
+  }
+
   return (
     <div>
       <h1>Blogs App</h1>
@@ -99,6 +108,7 @@ const App = () => {
           {blogs.map(blog => (
             <Blog
               blog={blog}
+              likesUpdate={likesUpdate}
               key={blog.id}
             />
           ))}
