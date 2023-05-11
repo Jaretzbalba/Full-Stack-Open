@@ -57,7 +57,7 @@ const App = () => {
       setPassword('')
       showMessage('sucess', `${user.name} was successfully logged in`)
     } catch (exception) {
-      showMessage('error', `wrong username or password`)
+      showMessage('error', 'wrong username or password')
     }
   }
 
@@ -78,7 +78,7 @@ const App = () => {
         `a new blog ${newBlog.title} by ${newBlog.author} added`
       )
     } catch (error) {
-      showMessage('error', `error while saving new blog`)
+      showMessage('error', 'error while saving new blog')
     }
   }
 
@@ -86,7 +86,7 @@ const App = () => {
     try {
       await blogService.update(id, blogObject)
       setRefreshBlogs(!refreshBlogs)
-      showMessage('success', `Successfully like added`)
+      showMessage('success', 'Successfully like added')
     } catch (error) {
       showMessage('danger', error.message)
     }
@@ -96,7 +96,7 @@ const App = () => {
     try {
       await blogService.remove(id)
       setRefreshBlogs(!refreshBlogs)
-      showMessage('success', `The blog was successfully deleted`)
+      showMessage('success', 'The blog was successfully deleted')
     } catch (error) {
       showMessage('danger', error.message)
     }

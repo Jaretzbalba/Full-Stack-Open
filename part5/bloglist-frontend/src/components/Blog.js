@@ -54,8 +54,6 @@ const Blog = ({ blog, likesUpdate, removeBlog, user }) => {
           <br />
           {blog.user.name}
           <br />
-          {console.log(blog.user.username)}
-          {console.log(user.username)}
           <button
             style={removeButtonVisible}
             onClick={handleRemove}
