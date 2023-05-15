@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
 import Blog from './Blog'
 
-test('renders content', () => {
+describe('Blog', () => {
   const blog = {
     id: '64040f7471b8e66910889a4d',
     title: 'test title',
@@ -24,6 +24,8 @@ test('renders content', () => {
     />
   )
 
-  const div = component.container.querySelector('.detailInfo')
-  expect(div).toHaveStyle('display: none')
+  test('only shows title/author at start', () => {
+    const div = component.container.querySelector('.detailInfo')
+    expect(div).toHaveStyle('display: none')
+  })
 })
