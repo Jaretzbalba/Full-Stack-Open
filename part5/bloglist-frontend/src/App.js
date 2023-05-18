@@ -134,6 +134,7 @@ const App = () => {
           })}
 
           <Togglable
+            buttonId='create'
             buttonLabel='new blog'
             ref={blogFormRef}
           >
